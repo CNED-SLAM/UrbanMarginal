@@ -1,23 +1,13 @@
 package modele;
+
+import controleur.Global;
+
 /**
  * Gestion des joueurs
  *
  */
-public class Joueur extends Objet {
+public class Joueur extends Objet implements Global {
 
-	/**
-	 * vie de départ pour tous les joueurs
-	 */
-	private static final int MAXVIE = 10 ;
-	/**
-	 * gain de points de vie lors d'une attaque
-	 */
-	private static final int GAIN = 1 ; 
-	/**
-	 * perte de points de vie lors d'une attaque
-	 */
-	private static final int PERTE = 2 ; 
-	
 	/**
 	 * pseudo saisi
 	 */
@@ -39,12 +29,12 @@ public class Joueur extends Objet {
 	 */
 	private Boule boule ;
 	/**
-	* vie restante du joueur
-	*/
+	 * vie restante du joueur
+	 */
 	private int vie ; 
 	/**
-	* tourné vers la gauche (0) ou vers la droite (1)
-	*/
+	 * tourné vers la gauche (0) ou vers la droite (1)
+	 */
 	private int orientation ;
 	
 	/**
@@ -55,8 +45,13 @@ public class Joueur extends Objet {
 
 	/**
 	 * Initialisation d'un joueur (pseudo et numéro, calcul de la 1ère position, affichage, création de la boule)
+	 * @param numPerso numéro du personnage
+	 * @param pseudo pseudo du joueur
 	 */
-	public void initPerso() {
+	public void initPerso(String pseudo, int numPerso) {
+		this.pseudo = pseudo;
+		this.numPerso = numPerso;
+		System.out.println("joueur "+pseudo+" - num perso "+numPerso+" créé");
 	}
 
 	/**
@@ -92,6 +87,14 @@ public class Joueur extends Objet {
 	}
 
 	/**
+	* Contrôle si le joueur touche un des murs
+	 * @return true si un joueur touche un mur
+	 */
+	private Boolean toucheMur() {
+		return null;
+	}
+	
+	/**
 	 * Gain de points de vie après avoir touché un joueur
 	 */
 	public void gainVie() {
@@ -101,14 +104,6 @@ public class Joueur extends Objet {
 	 * Perte de points de vie après avoir été touché 
 	 */
 	public void perteVie() {
-	}
-	
-	/**
-	* Contrôle si le joueur touche un des murs
-	* @return true si un joueur touche un mur
-	*/
-	private Boolean toucheMur() {
-		return null;
 	}
 	
 	/**
