@@ -31,7 +31,7 @@ public class Joueur extends Objet {
 	 */
 	private JeuServeur jeuServeur ;
 	/**
-	 * numéro d'�tape dans l'animation (de la marche, touché ou mort)
+	 * numéro d'étape dans l'animation (de la marche, touché ou mort)
 	 */
 	private int etape ;
 	/**

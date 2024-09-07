@@ -1,7 +1,5 @@
 package vue;
 
-import java.awt.EventQueue;
-
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JButton;
@@ -10,9 +8,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import controleur.Controle;
+
+/**
+ * Frame de l'entrée dans le jeu (choix entre serveur et client)
+ * @author emds
+ *
+ */
 public class EntreeJeu extends JFrame {
 
-	private static final long serialVersionUID = 1L;
 	/**
 	 * Panel général
 	 */
@@ -23,11 +27,15 @@ public class EntreeJeu extends JFrame {
 	private JTextField txtIp;
 	
 	/**
+	 * Instance du contrôleur pour communiquer avec lui
+	 */
+	private Controle controle;
+
+	/**
 	 * clic sur le bouton Start pour lancer le serveur
 	 */
 	private void btnStart_clic() {
-		(new Arene()).setVisible(true);
-		this.dispose();
+		this.controle.evenementEntreeJeu("serveur");
 	}
 	
 	/**
@@ -41,14 +49,14 @@ public class EntreeJeu extends JFrame {
 	 * clic sur le bouton Connect pour se connecter à un serveur
 	 */
 	private void btnConnect_clic() {
-		(new ChoixJoueur()).setVisible(true);
-		this.dispose();
-	}	
-	
+		this.controle.evenementEntreeJeu(this.txtIp.getText());
+	}
+
 	/**
 	 * Create the frame.
+	 * @param controle instance du contrôleur
 	 */
-	public EntreeJeu() {
+	public EntreeJeu(Controle controle) {
 		setResizable(false);
 		setTitle("Urban Marginal");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -104,6 +112,9 @@ public class EntreeJeu extends JFrame {
 		});
 		btnExit.setBounds(186, 91, 89, 23);
 		contentPane.add(btnExit);
+		
+		// récupération de l'instance de Controle
+		this.controle = controle;
 	}
 
 }
