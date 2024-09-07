@@ -35,7 +35,7 @@ public class ServeurSocket extends Thread {
 				this.start();		
 			}
 		} catch (IOException e) {
-			// probl�me grave qui ne devrait pas se produire : arr�t du programme
+			// probl�me grave qui ne devrait pas se produire : arrêt du programme
 			System.out.println("erreur grave cr�ation socket serveur : "+e);
 			System.exit(0);
 		}
@@ -45,7 +45,7 @@ public class ServeurSocket extends Thread {
 	 * M�thode thread qui va attendre la connexion d'un client
 	 */
 	public void run() {
-		// objet qui va r�cup�rer le socket du client qui s'est connect�
+		// objet qui va récupérer le socket du client qui s'est connecté
 		Socket socket ;
 		// boucle infinie pour attendre un nouveau client
 		while (true) {
@@ -53,11 +53,11 @@ public class ServeurSocket extends Thread {
 				// attente d'une connexion
 				System.out.println("le serveur attend");
 				socket = serverSocket.accept();
-				System.out.println("un client s'est connect�");
-				// cr�ation d'une connexion vers ce client, pour la communication (envoi et r�ception d'informations)
+				System.out.println("un client s'est connecté");
+				// création d'une connexion vers ce client, pour la communication (envoi et réception d'informations)
 				new Connection(socket, delegate);
 			} catch (IOException e) {
-				// probl�me grave qui ne devrait pas se produire : arr�t du programme
+				// problème grave qui ne devrait pas se produire : arrêt du programme
 				System.out.println("erreur sur l'objet serverSocket : "+e);
 				System.exit(0);
 			}
