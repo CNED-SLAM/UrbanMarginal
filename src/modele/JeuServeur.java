@@ -1,6 +1,7 @@
 package modele;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Hashtable;
 
 import javax.swing.JLabel;
@@ -32,6 +33,13 @@ public class JeuServeur extends Jeu implements Global {
 		super.controle = controle;
 	}
 	
+	/**
+	 * @return the lesJoueurs
+	 */
+	public Collection getLesJoueurs() {
+		return lesJoueurs.values();
+	}
+
 	@Override
 	public void connexion(Connection connection) {
 		this.lesJoueurs.put(connection, new Joueur(this));
