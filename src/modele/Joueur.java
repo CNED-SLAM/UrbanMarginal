@@ -62,6 +62,13 @@ public class Joueur extends Objet implements Global {
 	}
 
 	/**
+	 * @return the pseudo
+	 */
+	public String getPseudo() {
+		return pseudo;
+	}
+
+	/**
 	 * Initialisation d'un joueur (pseudo et numéro, calcul de la 1ère position, affichage, création de la boule)
 	 * @param pseudo pseudo du joueur
 	 * @param numPerso numéro du personnage

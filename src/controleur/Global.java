@@ -155,6 +155,10 @@ public interface Global {
 	 */
 	String SERVEUR = "serveur";
 	/**
+	 * Message "client" pour la création d'un client
+	 */
+	String CLIENT = "client";
+	/**
 	 * ordre pour ajouter un mur dans l'arène du serveur
 	 */
 	String AJOUTMUR = "ajout mur";
@@ -170,5 +174,17 @@ public interface Global {
 	 * ordre pour modifier le panel du jeu dans l'aeène du client
 	 */
 	String MODIFPANELJEU = "modif panel jeu";
+	/**
+	 * ordre pour demander d'ajouter une phrase au tchat
+	 */
+	String TCHAT = "tchat";
+	/**
+	 * ordre pour ajouter une phrase dans l'arène du serveur
+	 */
+	String AJOUTPHRASE = "ajout phrase";
+	/**
+	 * ordre pour modifier le contenu du tchat dans l'arène du client
+	 */
+	String MODIFTCHAT = "modif tchat";
 
 }
