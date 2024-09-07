@@ -1,5 +1,6 @@
 package controleur;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import modele.Jeu;
@@ -93,6 +94,13 @@ public class Controle implements AsyncResponse, Global {
 			break;
 		case AJOUTPANELMURS :
 			this.leJeu.envoi((Connection)info, this.frmArene.getJpnMurs());
+			break;
+		case AJOUTJLABELJEU :
+			this.frmArene.ajoutJLabelJeu((JLabel)info);
+			break;
+		case MODIFPANELJEU :
+			this.leJeu.envoi((Connection)info, this.frmArene.getJpnJeu());
+			break;
 		}
 	}
 	
@@ -105,6 +113,9 @@ public class Controle implements AsyncResponse, Global {
 		switch(ordre) {
 		case AJOUTPANELMURS :
 			this.frmArene.setJpnMurs((JPanel)info);
+			break;
+		case MODIFPANELJEU :
+			this.frmArene.setJpnJeu((JPanel)info);
 			break;
 		}
 	}

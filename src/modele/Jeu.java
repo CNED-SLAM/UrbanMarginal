@@ -16,7 +16,7 @@ public abstract class Jeu {
 
 	/**
 	 * Réception d'une connexion (pour communiquer avec un ordinateur distant)
-	 * @param connection TODO
+	 * @param connection objet connection pour la communication
 	 */
 	public abstract void connexion(Connection connection) ;
 	
