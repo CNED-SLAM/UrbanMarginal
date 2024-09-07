@@ -1,6 +1,7 @@
 package modele;
 
 import java.awt.Font;
+import java.awt.event.KeyEvent;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -127,14 +128,62 @@ public class Joueur extends Objet implements Global {
 
 	/**
 	 * Gère une action reçue et qu'il faut afficher (déplacement, tire de boule...)
+	 * @param action action a exécutée (déplacement ou tir de boule)
+	 * @param lesMurs collection de murs
+	 * @param lesJoueurs collection de joueurs
 	 */
-	public void action() {
+	public void action(Integer action, Collection<Joueur> lesJoueurs, ArrayList<Mur> lesMurs) {
+		switch(action){
+		case KeyEvent.VK_LEFT :
+			orientation = GAUCHE; 
+			posX = deplace(posX, action, -PAS, LARGEURARENE - LARGEURPERSO, lesJoueurs, lesMurs);
+			break;
+		case KeyEvent.VK_RIGHT :
+			orientation = DROITE; 
+			posX = deplace(posX, action, PAS, LARGEURARENE - LARGEURPERSO, lesJoueurs, lesMurs);
+			break;
+		case KeyEvent.VK_UP :
+			posY = deplace(posY, action, -PAS, HAUTEURARENE - HAUTEURPERSO - HAUTEURMESSAGE, lesJoueurs, lesMurs) ;
+			break;
+		case KeyEvent.VK_DOWN :
+			posY = deplace(posY,  action, PAS, HAUTEURARENE - HAUTEURPERSO - HAUTEURMESSAGE, lesJoueurs, lesMurs) ;
+			break;			
+		}
+		this.affiche(MARCHE, this.etape);
 	}
 
 	/**
-	 * Gère le déplacement du personnage
+	 * Gère le déplacement du personnage 
+	 * @param position position de départ
+	 * @param action gauche, droite, haut ou bas
+	 * @param lepas valeur de déplacement (positif ou négatif)
+	 * @param max valeur à ne pas dépasser
+	 * @param lesJoueurs collection de joueurs pour éviter les collisions
+	 * @param lesMurs collection de murs pour éviter les collisions
+	 * @return nouvelle position
 	 */
-	private void deplace() { 
+	private int deplace(int position, // position de départ
+			int action, // gauche, droite, haut, bas
+			int lepas, // valeur du déplacement (positif ou négatif)
+			int max, // valeur à ne pas dépasser
+			Collection<Joueur> lesJoueurs, // les autres joueurs (pour éviter les collisions)
+			ArrayList<Mur> lesMurs) { // les murs (pour éviter les collisions)
+		int ancpos = position ;
+		position += lepas ;
+		position = Math.max(position, 0) ;
+		position = Math.min(position,  max) ;
+		if (action==KeyEvent.VK_LEFT || action==KeyEvent.VK_RIGHT) {
+			posX = position ;
+		}else{
+			posY = position ;
+		}
+		// controle s'il y a collision, dans ce cas, le personnage reste sur place
+		if (toucheJoueur(lesJoueurs) || toucheMur(lesMurs)) {
+			position = ancpos ;
+		}
+		// passe à l'étape suivante de l'animation de la marche
+		etape = (etape % NBETAPESMARCHE) + 1 ;
+		return position ;
 	}
 
 	/**
