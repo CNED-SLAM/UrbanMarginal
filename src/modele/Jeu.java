@@ -29,8 +29,9 @@ public abstract class Jeu {
 	
 	/**
 	 * Déconnexion de l'ordinateur distant
+	 * @param connection objet de connexiob pour savoir quel ordinateur s'est déconnecté
 	 */
-	public abstract void deconnexion() ;
+	public abstract void deconnexion(Connection connection) ;
 	
 	/**
 	 * Envoi d'une information vers un ordinateur distant

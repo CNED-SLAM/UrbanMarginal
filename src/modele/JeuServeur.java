@@ -72,7 +72,9 @@ public class JeuServeur extends Jeu implements Global {
 	}
 	
 	@Override
-	public void deconnexion() {
+	public void deconnexion(Connection connection) {
+		this.lesJoueurs.get(connection).departJoueur();
+		this.lesJoueurs.remove(connection);
 	}
 
 	public void ajoutJLabelJeuArene(JLabel jLabel) {
