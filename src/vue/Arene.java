@@ -12,7 +12,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
-public class Arene extends JFrame {
+import controleur.Global;
+
+/**
+ * Frame qui affiche et gère l'arène du jeu
+ */
+public class Arene extends JFrame implements Global {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -33,7 +38,7 @@ public class Arene extends JFrame {
 		
 		JLabel lblFond = new JLabel("");
 		lblFond.setBounds(0, 0, 800, 600);
-		String chemin = "fonds/fondarene.jpg";
+		String chemin = FONDARENE;
 		URL resource = getClass().getClassLoader().getResource(chemin);
 		lblFond.setIcon(new ImageIcon(resource));
 		contentPane.add(lblFond);
