@@ -2,6 +2,8 @@ package modele;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
+import javax.swing.JLabel;
+
 import controleur.Controle;
 import controleur.Global;
 import outils.connexion.Connection;
@@ -35,7 +37,7 @@ public class JeuServeur extends Jeu implements Global {
 	 */
 	@Override
 	public void connexion(Connection connection) {
-		this.lesJoueurs.put(connection, new Joueur());
+		this.lesJoueurs.put(connection, new Joueur(this));
 	}
 
 	/**
@@ -52,7 +54,7 @@ public class JeuServeur extends Jeu implements Global {
 			this.controle.evenementJeuServeur(AJOUTPANELMURS, connection);
 			String pseudo = message[1];
 			Integer numPerso = Integer.parseInt(message[2]);
-			this.lesJoueurs.get(connection).initPerso(pseudo, numPerso);
+			this.lesJoueurs.get(connection).initPerso(pseudo, numPerso, this.lesJoueurs.values(), this.lesMurs);
 			break;
 		}
 		
@@ -69,6 +71,23 @@ public class JeuServeur extends Jeu implements Global {
 	public void envoi() {
 	}
 
+	/**
+	 * Envoi du panel de jeu à tous les joueurs
+	 */
+	public void envoiJeuATous() {
+		for(Connection connection : this.lesJoueurs.keySet()) {
+			this.controle.evenementJeuServeur(MODIFPANELJEU, connection);
+		}
+	}
+	
+	/**
+	 * Demande d'ajout d'un jlabel de jeu
+	 * @param jLabel
+	 */
+	public void ajoutJLabelJeuArene(JLabel jLabel) {
+		this.controle.evenementJeuServeur(AJOUTJLABELJEU, jLabel);
+	}
+	
 	/**
 	 * Génération des murs
 	 */
