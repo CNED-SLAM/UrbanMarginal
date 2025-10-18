@@ -1,5 +1,7 @@
 package controleur;
 
+import javax.swing.JPanel;
+
 import modele.Jeu;
 import modele.JeuClient;
 import modele.JeuServeur;
@@ -12,7 +14,7 @@ import vue.ChoixJoueur;
 import vue.EntreeJeu;
 
 /**
- * Classe qui gère les demandes de la vue
+ * Classe qui gère les demandes de la vue et du modèle
  */
 public class Controle implements AsyncResponse, Global {
 
@@ -39,6 +41,7 @@ public class Controle implements AsyncResponse, Global {
 			this.leJeu = new JeuServeur(this);
 			this.frmEntreeJeu.dispose();
 			this.frmArene = new Arene();
+			((JeuServeur)leJeu).constructionMurs();
 			this.frmArene.setVisible(true);
 		}else {
 			new ClientSocket(this, info, PORT);
@@ -54,6 +57,35 @@ public class Controle implements AsyncResponse, Global {
 		this.frmChoixJouur.dispose();
 		this.frmArene.setVisible(true);
 		((JeuClient)this.leJeu).envoi(PSEUDO+STRINGSEPARE+pseudo+STRINGSEPARE+numPerso);
+	}
+	
+	/**
+	 * Gère les demandes de JeuServeur
+	 * @param ordre
+	 * @param info
+	 */
+	public void evenementJeuServeur(String ordre, Object info) {
+		switch (ordre) {
+			case AJOUTMUR :
+				this.frmArene.ajoutMurs(info);
+				break;
+			case AJOUTPANELMURS :
+				this.leJeu.envoi((Connection)info, this.frmArene.getJpnMurs());
+				break;
+		}
+	}
+	
+	/**
+	 * Gère les demandes de JeuClient
+	 * @param ordre
+	 * @param info
+	 */
+	public void evenementJeuClient(String ordre, Object info) {
+		switch (ordre) {
+			case AJOUTPANELMURS :
+				this.frmArene.setJpnMurs((JPanel)info);
+				break;
+		}
 	}
 	
 	/**

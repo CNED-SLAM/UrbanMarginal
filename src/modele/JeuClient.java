@@ -1,18 +1,22 @@
 package modele;
 
+import javax.swing.JPanel;
+
 import controleur.Controle;
+import controleur.Global;
 import outils.connexion.Connection;
 
 /**
  * Gestion du jeu côté client
  *
  */
-public class JeuClient extends Jeu {
+public class JeuClient extends Jeu implements Global{
 	
 	private Connection connectionServeur;
 	
 	/**
-	 * Controleur
+	 * Constructeur
+	 * @param controle
 	 */
 	public JeuClient(Controle controle) {
 		super.controle = controle;
@@ -27,8 +31,16 @@ public class JeuClient extends Jeu {
 		this.connectionServeur = connection;
 	}
 
+	/**
+	 * Récupère l"ibformation envoyée par le serveur
+	 * @param connection
+	 * @param info
+	 */
 	@Override
 	public void reception(Connection connection, Object info) {
+		if (info instanceof JPanel) {
+			this.controle.evenementJeuClient(AJOUTPANELMURS, info);
+		}
 	}
 	
 	@Override
