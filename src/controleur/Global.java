@@ -29,6 +29,10 @@ public interface Global {
 	 */
 	String CHEMINMURS = "murs"+CHEMINSEPARATOR;
 	/**
+	 * Chemin du dossier de l'image de la boule
+	 */
+	String CHEMINBOULES = "boules"+CHEMINSEPARATOR;
+	/**
 	 * Chemin de l'image de fond de la vue ChoixJoueur
 	 */
 	String FONDCHOIX = CHEMINFONDS+"fondchoix.jpg";
@@ -44,6 +48,10 @@ public interface Global {
 	 * Chemin de l'image du mur
 	 */
 	String MUR = CHEMINMURS+"mur.gif";
+	/**
+	 * Chemin de l'image de la boule
+	 */
+	String BOULE = CHEMINBOULES+"boule.gif";
 	/**
 	 * Début du nom des images des personnages
 	 */
@@ -145,6 +153,14 @@ public interface Global {
 	 */
 	int NBETAPESMARCHE = 4;
 	/**
+	 * nombre d'étapes (d'images) pour donner l'impression d'être touché
+	 */
+	int NBETAPESTOUCHE = 2;
+	/**
+	 * nombre d'étapes (d'images) pour donner l'impresson de mourir
+	 */
+	int NBETAPESMORT = 2;
+	/**
 	 * ordre pour ajouter un mur dans l'arène du serveur
 	 */
 	String AJOUTMUR = "ajout mur";
@@ -184,5 +200,14 @@ public interface Global {
 	 * ordre pour exécuter une action (déplacement, tire de boule)
 	 */
 	String ACTION = "action";
+	/**
+	 * largeur de la boule
+	 */
+	int LARGEURBOULE = 17;
+	/**
+	 * hauteur de la boule
+	 */
+	int HAUTEURBOULE = 17;
+	
 
 }
