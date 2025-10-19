@@ -88,6 +88,7 @@ public class Arene extends JFrame implements Global {
 		this.jpnJeu.removeAll();
 		this.jpnJeu.add(jpnJeu);
 		this.jpnJeu.repaint();
+		this.contentPane.requestFocus();
 	}
 	
 	/**
@@ -138,7 +139,7 @@ public class Arene extends JFrame implements Global {
 	 * Evénément touche pressée dans la zone de saisie
 	 * @param e informations sur la touche
 	 */
-	public void txtSaisie_KeyPressed(KeyEvent e) {
+	private void txtSaisie_KeyPressed(KeyEvent e) {
 		// si validation
 		if(e.getKeyCode() == KeyEvent.VK_ENTER) {
 			// si la zone de saisie n'est pas vide
@@ -146,6 +147,27 @@ public class Arene extends JFrame implements Global {
 				this.controle.evenementArene(this.txtSaisie.getText());
 				this.txtSaisie.setText("");
 			}
+			this.contentPane.requestFocus();
+		}
+	}
+	
+	/**
+	 * Evénement touche pressée dans la frame
+	 * @param e informations sur la touche
+	 */
+	private void contentPane_KeyPressed(KeyEvent e) {
+		int touche = -1;
+		switch(e.getKeyCode()) {
+			case KeyEvent.VK_LEFT :
+			case KeyEvent.VK_RIGHT :
+			case KeyEvent.VK_UP :
+			case KeyEvent.VK_DOWN :
+				touche = e.getKeyCode();
+				break;
+		}
+		// si touche correcte, alors envoi de sa valeur
+		if(touche != -1) {
+			this.controle.evenementArene(touche);
 		}
 	}
 	
@@ -162,6 +184,14 @@ public class Arene extends JFrame implements Global {
 		this.getContentPane().setPreferredSize(new Dimension(LARGEURARENE, HAUTEURARENE + 25 + 140));
 		this.pack();
 		contentPane = new JPanel();
+		if (this.client) {
+			contentPane.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyPressed(KeyEvent e) {
+					contentPane_KeyPressed(e);
+				}
+			});
+		}
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
@@ -198,6 +228,14 @@ public class Arene extends JFrame implements Global {
 		}
 		
 		JScrollPane jspChat = new JScrollPane();
+		if (this.client) {
+			jspChat.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyPressed(KeyEvent e) {
+					contentPane_KeyPressed(e);
+				}
+			});
+		}
 		jspChat.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		jspChat.setBounds(0, 625, LARGEURARENE, 140);
 		contentPane.add(jspChat);

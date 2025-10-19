@@ -137,6 +137,14 @@ public interface Global {
 	 */
 	int NBMURS = 20;
 	/**
+	 * taille du pas quand le personnage avance (nombre de pixels)
+	 */
+	int PAS = 10;
+	/**
+	 * nombre d'étapes (d'images) pour donner l'impresson de marche
+	 */
+	int NBETAPESMARCHE = 4;
+	/**
 	 * ordre pour ajouter un mur dans l'arène du serveur
 	 */
 	String AJOUTMUR = "ajout mur";
@@ -172,5 +180,9 @@ public interface Global {
 	 * orientation du personnage vers la droite
 	 */
 	int DROITE = 1;
+	/**
+	 * ordre pour exécuter une action (déplacement, tire de boule)
+	 */
+	String ACTION = "action";
 
 }
