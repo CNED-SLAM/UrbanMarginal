@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 
 import controleur.Controle;
 import controleur.Global;
+import outils.son.Son;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -51,11 +52,28 @@ public class ChoixJoueur extends JFrame implements Global {
 	 * numéro du personnage (avatar) initialisé à 1
 	 */
 	private int numPerso = 1;
+	/**
+	 * son d'entrée dans la frame
+	 */
+	private Son welcome;
+	/**
+	 * son du clic sur la flèche de gauche
+	 */
+	private Son precedent;
+	/**
+	 * son du clic sur la flèche de droite
+	 */
+	private Son suivant;
+	/**
+	 * son du clic sur go
+	 */
+	private Son go;
 	
 	/**
 	 * Clic sur la flèche gauche
 	 */
 	private void lblPrecedent_clic() {
+		precedent.play();
 		numPerso = (numPerso + 1) % MAXPERSO + 1;
 		affichePerso();
 	}
@@ -64,6 +82,7 @@ public class ChoixJoueur extends JFrame implements Global {
 	 * Clic sur la flèche droite
 	 */
 	private void lblSuivant_clic() {
+		suivant.play();
 		numPerso = numPerso % MAXPERSO + 1;
 		affichePerso();
 	}
@@ -72,6 +91,7 @@ public class ChoixJoueur extends JFrame implements Global {
 	 * Clic sur GO
 	 */
 	private void lblGo_clic() {
+		go.play();
 		if(txtPseudo.getText().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "La saisie du pseudo est obligatoire");
 			txtPseudo.requestFocus();
@@ -190,6 +210,13 @@ public class ChoixJoueur extends JFrame implements Global {
 		
 		this.controle = controle;
 		this.affichePerso();
+		
+		// récupération des sons
+		precedent = new Son(getClass().getClassLoader().getResource(SONPRECEDENT));
+		suivant = new Son(getClass().getClassLoader().getResource(SONSUIVANT));
+		go = new Son(getClass().getClassLoader().getResource(SONGO));
+		welcome = new Son(getClass().getClassLoader().getResource(SONWELCOME));
+		welcome.play();
 		
 	}
 }

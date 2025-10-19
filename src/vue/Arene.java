@@ -14,6 +14,8 @@ import javax.swing.ScrollPaneConstants;
 
 import controleur.Controle;
 import controleur.Global;
+import outils.son.Son;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -54,6 +56,10 @@ public class Arene extends JFrame implements Global {
 	 * booléen pour savoir si c'est l'arène du client ou du serveur
 	 */
 	private boolean client;
+	/**
+	 * Talbeau des sons de l'arène
+	 */
+	private Son[] lesSons = new Son[SON.length];
 	
 	/**
 	 * Getter panel des murs
@@ -173,6 +179,14 @@ public class Arene extends JFrame implements Global {
 	}
 	
 	/**
+	 * Joue le son correspondant au numéro reçu
+	 * @param numSon numéro du son (0 : fight, 1 : hurt; 2 : death)
+	 */
+	public void joueSon(Integer numSon) {
+		this.lesSons[numSon].play();
+	}
+	
+	/**
 	 * Create the frame. 
 	 * @param controle controleur
 	 * @param typeJeu CLIENT ou SERVEUR
@@ -244,6 +258,13 @@ public class Arene extends JFrame implements Global {
 		txtChat = new JTextArea();
 		txtChat.setEditable(false);
 		jspChat.setViewportView(txtChat);
+		
+		// gestion des sons pour le client
+		if (client) {
+			for (int k=0 ; k<SON.length ; k++) {
+				lesSons[k] = new Son(getClass().getClassLoader().getResource(SON[k])) ;
+			}
+		}
 		
 		this.controle = controle;
 	}
