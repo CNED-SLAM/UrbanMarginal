@@ -51,7 +51,8 @@ public class Joueur extends Objet implements Global {
 	private JLabel message ;
 	
 	/**
-	 * Constructeur
+	 * Constructeur 
+	 * @param jeuServeur instance de JeuServeur pour communiquer
 	 */
 	public Joueur(JeuServeur jeuServeur) {
 		this.jeuServeur = jeuServeur;
@@ -59,13 +60,21 @@ public class Joueur extends Objet implements Global {
 		this.etape = 1;
 		this.orientation = DROITE;
 	}
+	
+	/**
+	 * Getter du pseudo
+	 * @return pseudo
+	 */
+	public String getPseudo() {
+		return pseudo;
+	}
 
 	/**
 	 * Initialisation d'un joueur (pseudo et numéro, calcul de la 1ère position, affichage, création de la boule)
-	 * @param pseudo
-	 * @param numPerso
-	 * @param lesJoueurs
-	 * @param lesMurs
+	 * @param pseudo pseudo du jouur
+	 * @param numPerso numéro de l'avatar du joueur
+	 * @param lesJoueurs collection de joueurs
+	 * @param lesMurs tableau de murs
 	 */
 	public void initPerso(String pseudo, Integer numPerso, Collection<Joueur>lesJoueurs, ArrayList<Mur> lesMurs) {
 		this.pseudo = pseudo;
@@ -88,8 +97,8 @@ public class Joueur extends Objet implements Global {
 
 	/**
 	 * Calcul de la première position aléatoire du joueur (sans chevaucher un autre joueur ou un mur)
-	 * @param lesJoueurs
-	 * @param lesMurs
+	 * @param lesJoueurs collection de joueurs
+	 * @param lesMurs tableau des murs
 	 */
 	private void premierePosition(Collection<Joueur> lesJoueurs, ArrayList<Mur> lesMurs) {
 		jLabel.setBounds(0, 0, LARGEURPERSO, HAUTEURPERSO);
@@ -101,8 +110,8 @@ public class Joueur extends Objet implements Global {
 	
 	/**
 	 * Affiche le personnage et son message
-	 * @param etat
-	 * @param etape
+	 * @param etat état du personnage (MARCHE, TOUCH, MORT)
+	 * @param etape étape d'animation dans l'état
 	 */
 	public void affiche(String etat, int etape) {
 		// positionnement du personnage et affectation de la bonne image
@@ -159,7 +168,7 @@ public class Joueur extends Objet implements Global {
 	
 	/**
 	 * Contrôle si le joueur touche un des murs 
-	 * @param lesMurs
+	 * @param lesMurs tableau des murs
 	 * @return true si un joueur touche un mur
 	 */
 	private Boolean toucheMur(ArrayList<Mur> lesMurs) {

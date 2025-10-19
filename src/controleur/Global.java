@@ -69,6 +69,10 @@ public interface Global {
 	 */
 	String SERVEUR = "serveur";
 	/**
+	 * Type de jeu "client"
+	 */
+	String CLIENT = "client";
+	/**
 	 * Message "connexion" envoyé par la classe Connection
 	 */
 	String CONNEXION = "connexion";
@@ -148,6 +152,18 @@ public interface Global {
 	 * ordre pour modifier le panel du jeu dans l'aeène du client
 	 */
 	String MODIFPANELJEU = "modif panel jeu";
+	/**
+	 * ordre pour ajouter une phrase dans l'arène du serveur
+	 */
+	String AJOUTPHRASE = "ajout phrase";
+	/**
+	 * ordre pour modifier le contenu du tchat dans l'arène du client
+	 */
+	String MODIFTCHAT = "modif tchat";
+	/**
+	 * ordre pour demander d'ajouter une phrase au tchat
+	 */
+	String TCHAT = "tchat";
 	/**
 	 * orientation du personnage vers la gauche
 	 */

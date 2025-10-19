@@ -19,9 +19,21 @@ import vue.EntreeJeu;
  */
 public class Controle implements AsyncResponse, Global {
 
+	/**
+	 * objet de la frame EntreeJeu
+	 */
 	private EntreeJeu frmEntreeJeu ;
+	/**
+	 * objet de la frame Arene
+	 */
 	private Arene frmArene ;
+	/**
+	 * objet de la frame ChoixJoueur
+	 */
 	private ChoixJoueur frmChoixJouur ;
+	/**
+	 * objet de type JeuClient ou JeuServeur
+	 */
 	private Jeu leJeu;
 	
 	/**
@@ -34,14 +46,14 @@ public class Controle implements AsyncResponse, Global {
 	
 	/**
 	 * Gèe les demandes provenant de EntreeJeu
-	 * @param info
+	 * @param info information envoyée par EntreeJeu
 	 */
 	public void evenementEntreeJeu(String info) {
 		if (info.equals(SERVEUR)) {
 			new ServeurSocket(this, 6666);
 			this.leJeu = new JeuServeur(this);
 			this.frmEntreeJeu.dispose();
-			this.frmArene = new Arene();
+			this.frmArene = new Arene(this, SERVEUR);
 			((JeuServeur)leJeu).constructionMurs();
 			this.frmArene.setVisible(true);
 		}else {
@@ -51,8 +63,8 @@ public class Controle implements AsyncResponse, Global {
 	
 	/**
 	 * Gère les demandes provenant de ChoixJoueur
-	 * @param pseudo
-	 * @param numPerso
+	 * @param pseudo pseudo choisi par le joueur
+	 * @param numPerso numéro de l'avatar choisi par le joueur
 	 */
 	public void evenementChoixJoueur(String pseudo, int numPerso) {
 		this.frmChoixJouur.dispose();
@@ -61,9 +73,17 @@ public class Controle implements AsyncResponse, Global {
 	}
 	
 	/**
+	 * Gère les demandes provenant de Arene
+	 * @param info information envoyée par Arene
+	 */
+	public void evenementArene(String info) {
+		((JeuClient)this.leJeu).envoi(TCHAT+STRINGSEPARE+info);
+	}
+	
+	/**
 	 * Gère les demandes de JeuServeur
-	 * @param ordre
-	 * @param info
+	 * @param ordre demande textuelle pour savoir quel traitement exécuter
+	 * @param info information à traiter
 	 */
 	public void evenementJeuServeur(String ordre, Object info) {
 		switch (ordre) {
@@ -79,13 +99,17 @@ public class Controle implements AsyncResponse, Global {
 			case MODIFPANELJEU :
 				this.leJeu.envoi((Connection)info, this.frmArene.getJpnJeu());
 				break;
+			case AJOUTPHRASE :
+				this.frmArene.ajoutTchat((String)info);
+				((JeuServeur)this.leJeu).envoi(this.frmArene.getTxtChat());
+				break;
 		}
 	}
 	
 	/**
 	 * Gère les demandes de JeuClient
-	 * @param ordre
-	 * @param info
+	 * @param ordre demande textuelle pour savoir quel traitement exécuter
+	 * @param info information à traiter
 	 */
 	public void evenementJeuClient(String ordre, Object info) {
 		switch (ordre) {
@@ -95,13 +119,16 @@ public class Controle implements AsyncResponse, Global {
 			case MODIFPANELJEU :
 				this.frmArene.setJpnJeu((JPanel)info);
 				break;
+			case MODIFTCHAT :
+				this.frmArene.setTxtChat((String)info);
+				break;
 		}
 	}
 	
 	/**
 	 * Envoi d'une information vers l'ordinateur distant
-	 * @param connection
-	 * @param info
+	 * @param connection objet de connexion de l'ordinateur distant
+	 * @param info information à envoyer
 	 */
 	public void envoi(Connection connection, Object info) {
 		connection.envoi(info);
@@ -128,7 +155,7 @@ public class Controle implements AsyncResponse, Global {
 				if (!(this.leJeu instanceof JeuServeur)) {
 					this.frmEntreeJeu.dispose();
 					this.frmChoixJouur = new ChoixJoueur(this);
-					this.frmArene = new Arene();
+					this.frmArene = new Arene(this, CLIENT);
 					this.frmChoixJouur.setVisible(true);
 					this.leJeu = new JeuClient(this);
 					this.leJeu.connexion(connection);

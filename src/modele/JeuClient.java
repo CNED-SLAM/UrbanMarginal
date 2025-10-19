@@ -12,12 +12,18 @@ import outils.connexion.Connection;
  */
 public class JeuClient extends Jeu implements Global{
 	
+	/**
+	 * Objet de connexion au serveur
+	 */
 	private Connection connectionServeur;
+	/**
+	 * Booléen pour savoir si les murs sont déjà arrivés
+	 */
 	private boolean mursOk = false;
 	
 	/**
 	 * Constructeur
-	 * @param controle
+	 * @param controle instance du contrôleur
 	 */
 	public JeuClient(Controle controle) {
 		super.controle = controle;
@@ -25,7 +31,7 @@ public class JeuClient extends Jeu implements Global{
 	
 	/**
 	 * Récupère l'objet de connexion du serveur pour pouvoir communiquer avec lui
-	 * @param connection
+	 * @param connection objet de connexion de l'ordinateur distant
 	 */
 	@Override
 	public void connexion(Connection connection) {
@@ -34,8 +40,8 @@ public class JeuClient extends Jeu implements Global{
 
 	/**
 	 * Récupère l"ibformation envoyée par le serveur
-	 * @param connection
-	 * @param info
+	 * @param connection objet de connexion de l'ordinateur distant
+	 * @param info information reçue
 	 */
 	@Override
 	public void reception(Connection connection, Object info) {
@@ -48,6 +54,8 @@ public class JeuClient extends Jeu implements Global{
 				// arrivée du panel de jeu
 				this.controle.evenementJeuClient(MODIFPANELJEU, info);
 			}
+		} else if(info instanceof String) {
+			this.controle.evenementJeuClient(MODIFTCHAT, info);
 		}
 	}
 	
@@ -58,7 +66,7 @@ public class JeuClient extends Jeu implements Global{
 	/**
 	 * Envoi d'une information vers le serveur
 	 * fais appel une fois à l'envoi dans la classe Jeu
-	 * @param info
+	 * @param info information à envoyer
 	 */
 	public void envoi(String info) {
 		super.envoi(this.connectionServeur, info);

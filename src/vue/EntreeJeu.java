@@ -17,11 +17,29 @@ import java.awt.event.ActionEvent;
  */
 public class EntreeJeu extends JFrame implements Global{
 
+	/**
+	 * numéro interne
+	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * panel principal
+	 */
 	private JPanel contentPane;
+	/**
+	 * zone de saisie de l'IP
+	 */
 	private JTextField txtIp;
+	/**
+	 * frame Arne
+	 */
 	private Arene frmArene;
+	/**
+	 * frame ChoixJoueur
+	 */
 	private ChoixJoueur frmChoixJoueur;
+	/**
+	 * objet permettant de communiquer avec le contrôleur
+	 */
 	private Controle controle;
 	
 	/**
@@ -50,6 +68,7 @@ public class EntreeJeu extends JFrame implements Global{
 
 	/**
 	 * Create the frame.
+	 * @param controle instance du contrôleur
 	 */
 	public EntreeJeu(Controle controle) {
 		setTitle("Urban Marginal");

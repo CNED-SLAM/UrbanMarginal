@@ -25,7 +25,7 @@ public class JeuServeur extends Jeu implements Global {
 	
 	/**
 	 * Constructeur
-	 * @param controle
+	 * @param controle instance du contrôleur
 	 */
 	public JeuServeur(Controle controle) {
 		super.controle = controle;
@@ -33,7 +33,7 @@ public class JeuServeur extends Jeu implements Global {
 	
 	/**
 	 * Récupère la connexion du joueur et l'enregistre en créant le joueur correspondant
-	 * @param connection
+	 * @param connection objet de connexion de l'ordinateur distant
 	 */
 	@Override
 	public void connexion(Connection connection) {
@@ -42,8 +42,8 @@ public class JeuServeur extends Jeu implements Global {
 
 	/**
 	 * Gère la réception d'information provenant de l'ordinateur distant (un joueur)
-	 * @param connection
-	 * @param info
+	 * @param connection objet de connexion de l'ordinateur distant
+	 * @param info information reçue
 	 */
 	@Override
 	public void reception(Connection connection, Object info) {
@@ -55,9 +55,15 @@ public class JeuServeur extends Jeu implements Global {
 			String pseudo = message[1];
 			Integer numPerso = Integer.parseInt(message[2]);
 			this.lesJoueurs.get(connection).initPerso(pseudo, numPerso, this.lesJoueurs.values(), this.lesMurs);
+			String premierMessage = "*** "+pseudo+" vient de se connecter ***";
+			this.controle.evenementJeuServeur(AJOUTPHRASE, premierMessage);
+			break;
+		case TCHAT :
+			String phrase = message[1];
+			phrase = this.lesJoueurs.get(connection).getPseudo()+" > "+phrase;
+			this.controle.evenementJeuServeur(AJOUTPHRASE, phrase);
 			break;
 		}
-		
 	}
 	
 	@Override
@@ -67,8 +73,12 @@ public class JeuServeur extends Jeu implements Global {
 	/**
 	 * Envoi d'une information vers tous les clients
 	 * fais appel plusieurs fois à l'envoi de la classe Jeu
+	 * @param info information à envoyer
 	 */
-	public void envoi() {
+	public void envoi(Object info) {
+		for(Connection connection : this.lesJoueurs.keySet()) {
+			super.envoi(connection, info);
+		}		
 	}
 
 	/**
@@ -82,7 +92,7 @@ public class JeuServeur extends Jeu implements Global {
 	
 	/**
 	 * Demande d'ajout d'un jlabel de jeu
-	 * @param jLabel
+	 * @param jLabel label du jeu
 	 */
 	public void ajoutJLabelJeuArene(JLabel jLabel) {
 		this.controle.evenementJeuServeur(AJOUTJLABELJEU, jLabel);

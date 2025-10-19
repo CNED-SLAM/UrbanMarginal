@@ -23,12 +23,33 @@ import javax.swing.SwingConstants;
  */
 public class ChoixJoueur extends JFrame implements Global {
 
+	/**
+	 * numéro interne
+	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * panel général
+	 */
 	private JPanel contentPane;
+	/**
+	 * zone de saisie du pseudo
+	 */
 	private JTextField txtPseudo;
+	/**
+	 * label du personnage (image de l'avatar)
+	 */
 	private JLabel lblPersonnage;
+	/**
+	 * frame de Arene
+	 */
 	private Arene frmArene;
+	/**
+	 * objet permettant de communiquer avec le contrôleur
+	 */
 	private Controle controle;
+	/**
+	 * numéro du personnage (avatar) initialisé à 1
+	 */
 	private int numPerso = 1;
 	
 	/**
@@ -84,6 +105,7 @@ public class ChoixJoueur extends JFrame implements Global {
 
 	/**
 	 * Create the frame.
+	 * @param controle instance du contrôleur
 	 */
 	public ChoixJoueur(Controle controle) {
 		setTitle("Choice");
