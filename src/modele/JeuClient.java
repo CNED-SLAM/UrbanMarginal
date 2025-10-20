@@ -62,7 +62,8 @@ public class JeuClient extends Jeu implements Global{
 	}
 	
 	@Override
-	public void deconnexion() {
+	public void deconnexion(Connection connection) {
+		System.exit(0);
 	}
 
 	/**

@@ -48,6 +48,14 @@ public abstract class Objet {
 		return posY;
 	}
 	
+	public void setPosX(Integer posX) {
+		this.posX = posX;
+	}
+
+	public void setPosY(Integer posY) {
+		this.posY = posY;
+	}
+
 	/**
 	 * controle si l'objet actuel touche l'objet pass� en param�tre
 	 * @param objet contient l'objet à controler

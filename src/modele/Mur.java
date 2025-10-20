@@ -27,5 +27,6 @@ public class Mur extends Objet implements Global{
 		URL resource = getClass().getClassLoader().getResource(MUR);
 		jLabel.setIcon(new ImageIcon(resource));
 	}
+
 	
 }
